@@ -50,6 +50,7 @@ I determined that the bug was fixed using in game testing. I went to the server 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
 ---
+In Streamlit, every time the user interacts with the app, the whole script runs again from top to bottom. Because the script restarts on each interaction, normal Python variables would reset every time. `st.session_state` is a special storage area that keeps values across those reruns, so you can remember the secret number, attempts, score, and game status. Think of the script as a recipe that is re-read every time you press a button, and `st.session_state` as the pantry where you keep the ingredients between recipe runs.
 
 ## 5. Looking ahead: your developer habits
 
@@ -57,3 +58,5 @@ I determined that the bug was fixed using in game testing. I went to the server 
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+I think the project showed me not to take AI suggestions as it is rather to critically examine them and tailor them to what you want. As done in this project, I want to keep making test cases of every modification I made using AI while also documenting what the changes I made were. However, for future projects I will need to be more specific with AI on where each component goes, what files to make use of and what modifications are off-limits.
