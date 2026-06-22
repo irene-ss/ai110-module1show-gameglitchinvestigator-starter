@@ -8,15 +8,19 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the hints were backwards").
 
+  a. When the Secret was 65 and I typed in 50 the message that popped up was misleading as it asked me to go lower
+  b. History was not being recorded correctly, it was not making a correct list of my guesses.
+  c. New game button does not renew attempts left
+
 **Bug Reproduction Log**
 
 Document at least 3 bugs you found. Add rows as needed.
 
 | Input | Expected Behavior | Actual Behavior | Console Output / Error |
 |-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+| 50    |  Go Higher!         Go Lower!         Wrong message displayed
+|   26  |   { 26:1 }            {  }            History not tracked properly
+| 40    | go higher/lower!   no attempts left   New game button doesnt reset attempts.
 
 ---
 
@@ -28,6 +32,8 @@ Document at least 3 bugs you found. Add rows as needed.
 
 ---
 
+I exclusively used the VS Code AI Assistant. The correct suggestion that AI gave me was to change the code for the check guess feature so that the messages are right. The incorrect suggestion it gave me was for the import statements that was used to pull different files in logic_utils.py which was unnecessary since we import thr functionalities in app.py.
+
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
@@ -36,6 +42,8 @@ Document at least 3 bugs you found. Add rows as needed.
 - Did AI help you design or understand any tests? How?
 
 ---
+
+I determined that the bug was fixed using in game testing. I went to the server and checked myself to make sure that the game was running as intended after the fixes done by AI. One test that I ran was for the reset button, which verified that the all variable values pertaining to the game was updated once it was clicked. AI had helped me reset all variables to its initial state and test it in the test file,
 
 ## 4. What did you learn about Streamlit and state?
 

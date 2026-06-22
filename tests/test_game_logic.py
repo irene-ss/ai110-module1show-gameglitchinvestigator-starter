@@ -1,16 +1,50 @@
-from logic_utils import check_guess
+from types import SimpleNamespace
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from logic_utils import check_guess, reset_game_state
+
 
 def test_winning_guess():
-    # If the secret is 50 and guess is 50, it should be a win
-    result = check_guess(50, 50)
-    assert result == "Win"
+    outcome, message = check_guess(50, 50)
+    assert outcome == "Win"
+    assert message == "🎉 Correct!"
 
 def test_guess_too_high():
-    # If secret is 50 and guess is 60, hint should be "Too High"
-    result = check_guess(60, 50)
-    assert result == "Too High"
+    outcome, message = check_guess(60, 50)
+    assert outcome == "Too High"
+    assert message == "📉 Go LOWER!"
 
 def test_guess_too_low():
-    # If secret is 50 and guess is 40, hint should be "Too Low"
-    result = check_guess(40, 50)
-    assert result == "Too Low"
+    outcome, message = check_guess(40, 50)
+    assert outcome == "Too Low"
+    assert message == "📈 Go HIGHER!"
+
+def test_guess_with_string_secret_handles_logic_correctly():
+    outcome, message = check_guess(50, "50")
+    assert outcome == "Win"
+    assert message == "🎉 Correct!"
+
+
+def test_reset_game_state_resets_all_values():
+    # FIX: Regression test added for the new reset behavior after AI-assisted bug fixes
+    state = SimpleNamespace(
+        attempts=4,
+        secret=999,
+        score=42,
+        status="lost",
+        history=[5, 15, 25],
+        guess_input_Easy="123"
+    )
+
+    reset_game_state(state, low=1, high=20, difficulty="Easy")
+
+    assert state.attempts == 1
+    assert 1 <= state.secret <= 20
+    assert state.secret != 999
+    assert state.score == 0
+    assert state.status == "playing"
+    assert state.history == []
+    assert state.guess_input_Easy == ""
