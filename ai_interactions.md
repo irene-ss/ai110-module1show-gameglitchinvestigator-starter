@@ -10,15 +10,15 @@
 
 **What task did you give the agent?**
 
-<!-- Describe the goal you asked the agent to accomplish -->
+identify 3 edge cases that could potentially break my code and generate pytests for them.
 
 **What did the agent do?**
 
-<!-- List the steps the agent took (files edited, commands run, etc.) -->
+It added test cases to the existing test file and also ran the pytest command in the terminal upon approval.
 
 **What did you have to verify or fix manually?**
 
-<!-- Describe anything the agent got wrong or that required human review -->
+Had to verify the funcitonality of the code after the testcase code updates.
 
 ---
 

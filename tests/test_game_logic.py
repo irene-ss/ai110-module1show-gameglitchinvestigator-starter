@@ -4,13 +4,34 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from logic_utils import check_guess, reset_game_state
+from logic_utils import check_guess, parse_guess, reset_game_state
 
 
 def test_winning_guess():
     outcome, message = check_guess(50, 50)
     assert outcome == "Win"
     assert message == "🎉 Correct!"
+
+
+def test_parse_guess_rejects_negative_numbers():
+    ok, value, err = parse_guess("-5", low=1, high=100)
+    assert ok is False
+    assert value is None
+    assert err == "Enter a whole number between 1 and 100."
+
+
+def test_parse_guess_rejects_decimal_inputs():
+    ok, value, err = parse_guess("42.5", low=1, high=100)
+    assert ok is False
+    assert value is None
+    assert err == "Enter a whole number between 1 and 100."
+
+
+def test_parse_guess_rejects_extremely_large_values():
+    ok, value, err = parse_guess("999999999999999999999999999999999", low=1, high=100)
+    assert ok is False
+    assert value is None
+    assert err == "Enter a whole number between 1 and 100."
 
 def test_guess_too_high():
     outcome, message = check_guess(60, 50)

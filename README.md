@@ -44,12 +44,18 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 
 ## 🧪 Test Results
 
+We added pytest coverage for edge cases including negative values, decimal inputs, and extremely large values to verify the game rejects invalid guesses gracefully.
+
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# No output, however the precense of no error messages means the tests passed.
+cd "c:\Users\rekha\OneDrive\Desktop\CodePath\AI 101\week 4 proj1\ai110-module1show-gameglitchinvestigator-starter"
+python -m pytest -q
+........  [100%]
+8 passed in 0.02s
 ```
 
 ## 🚀 Stretch Features
 
-- [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+- Added edge-case handling for:
+negative numbers
+decimal inputs
+extremely large values

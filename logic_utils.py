@@ -1,4 +1,5 @@
 import random
+import re
 
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
@@ -11,22 +12,26 @@ def get_range_for_difficulty(difficulty: str):
     return 1, 100
 
 
-def parse_guess(raw: str):
+def parse_guess(raw: str, low: int = 1, high: int = 100):
     """
-    Parse user input into an int guess.
+    Parse user input into an int guess and validate it against a range.
 
     Returns: (ok: bool, guess_int: int | None, error_message: str | None)
     """
-    if raw is None or raw == "":
+    if raw is None or raw.strip() == "":
         return False, None, "Enter a guess."
 
+    raw = raw.strip()
+    if not re.fullmatch(r"[+-]?\d+", raw):
+        return False, None, f"Enter a whole number between {low} and {high}."
+
     try:
-        if "." in raw:
-            value = int(float(raw))
-        else:
-            value = int(raw)
-    except Exception:
+        value = int(raw)
+    except (ValueError, OverflowError):
         return False, None, "That is not a number."
+
+    if value < low or value > high:
+        return False, None, f"Enter a whole number between {low} and {high}."
 
     return True, value, None
 
@@ -87,4 +92,8 @@ def reset_game_state(session_state, low: int, high: int, difficulty: str):
     session_state.score = 0
     session_state.status = "playing"
     session_state.history = []
-    session_state[f"guess_input_{difficulty}"] = ""
+    input_key = f"guess_input_{difficulty}"
+    try:
+        session_state[input_key] = ""
+    except TypeError:
+        setattr(session_state, input_key, "")
